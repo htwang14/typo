@@ -11,6 +11,22 @@ describe Admin::CategoriesController do
     request.session = { :user => henri.id }
   end
 
+  # add new rspec test 1/2:
+  describe "test_new with GET" do
+    it 'should render template new' do
+      get :new
+      assert_template 'new'
+    end
+  end
+  
+  # add new rspec test 2/2:
+  describe "test_new with POST" do 
+    it 'should create a new category' do
+      post :new, :category => { name: 'haha', keywords: 'haha', permalink: '', description: 'hahaha' }
+      Category.find_by_name("haha").should_not be_nil
+    end
+  end
+
   it "test_index" do
     get :index
     assert_response :redirect, :action => 'index'
